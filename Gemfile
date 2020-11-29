@@ -35,6 +35,8 @@ gem 'rails_admin', '~> 2.0'
 gem "pundit"
 # Model history tracker
 gem 'paper_trail'
+# Image upload
+gem 'carrierwave', '~> 2.0'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
@@ -64,5 +66,3 @@ group :test do
   gem 'webdrivers'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
