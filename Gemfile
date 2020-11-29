@@ -33,6 +33,8 @@ gem 'devise'
 gem 'rails_admin', '~> 2.0'
 # Authorization with pundit
 gem "pundit"
+# Model history tracker
+gem 'paper_trail'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
