@@ -37,6 +37,8 @@ gem "pundit"
 gem 'paper_trail'
 # Image upload
 gem 'carrierwave', '~> 2.0'
+# Image Hosting
+gem 'cloudinary'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
