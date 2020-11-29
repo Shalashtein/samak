@@ -1,7 +1,7 @@
-#Samak
-###A rails app created for the Berytech 2020 Hackathon
+# Samak
+### A rails app created for the Berytech 2020 Hackathon
 
-##Problems
+## Problems
 
 - Lack of data and statistics on fish catching in Lebanon
 - Monopolization of fresh seafood by middleman fish markets
