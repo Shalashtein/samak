@@ -10,7 +10,8 @@
     <%= f.input :water %>
     <%= f.input :texture %>
     <%= f.input :flavor %>
-    <%= f.input :image %>
+    <%= f.input :image, as: :file%>
+    <%= f.input :image_cache, :as => :hidden %>
   </div>
 
   <div class="form-actions">

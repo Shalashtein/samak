@@ -15,8 +15,12 @@ class FishpicUploader < CarrierWave::Uploader::Base
     resize_to_fit(50, 50)
   end
 
+  def public_id
+    return model.class.name
+  end
+
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  #storage :fog
   # storage :fog
 
   # Override the directory where uploaded files will be stored.

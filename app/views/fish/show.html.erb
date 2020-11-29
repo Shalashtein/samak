@@ -32,7 +32,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @fish.image %>
+  <%= image_tag(@fish.image_url) %>
 </p>
 
 <%= link_to 'Edit', edit_fish_path(@fish) %> |

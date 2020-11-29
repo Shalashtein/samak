@@ -15,6 +15,7 @@ class FishController < ApplicationController
   # GET /fish/new
   def new
     @fish = Fish.new
+    @fish.image = params[:file]
   end
 
   # GET /fish/1/edit
