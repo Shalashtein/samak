@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_120940) do
+ActiveRecord::Schema.define(version: 2020_11_29_174858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "catches", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "fish_id", null: false
+    t.integer "weight"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fish_id"], name: "index_catches_on_fish_id"
+    t.index ["user_id"], name: "index_catches_on_user_id"
+  end
 
   create_table "fish", force: :cascade do |t|
     t.string "scientific"
@@ -53,4 +63,6 @@ ActiveRecord::Schema.define(version: 2020_11_29_120940) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "catches", "fish"
+  add_foreign_key "catches", "users"
 end

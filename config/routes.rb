@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :catches
   resources :fish
   mount RailsAdmin::Engine => '/god', as: 'rails_admin'
   devise_for :users
