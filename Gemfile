@@ -31,6 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 # Admin Dashboard
 gem 'rails_admin', '~> 2.0'
+# Authorization with pundit
+gem "pundit"
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
