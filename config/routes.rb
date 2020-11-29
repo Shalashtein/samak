@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :fish
   mount RailsAdmin::Engine => '/god', as: 'rails_admin'
   devise_for :users
   root to: 'pages#home'

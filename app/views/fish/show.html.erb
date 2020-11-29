@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Scientific:</strong>
+  <%= @fish.scientific %>
+</p>
+
+<p>
+  <strong>English:</strong>
+  <%= @fish.english %>
+</p>
+
+<p>
+  <strong>Lebanese:</strong>
+  <%= @fish.lebanese %>
+</p>
+
+<p>
+  <strong>Water:</strong>
+  <%= @fish.water %>
+</p>
+
+<p>
+  <strong>Texture:</strong>
+  <%= @fish.texture %>
+</p>
+
+<p>
+  <strong>Flavor:</strong>
+  <%= @fish.flavor %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @fish.image %>
+</p>
+
+<%= link_to 'Edit', edit_fish_path(@fish) %> |
+<%= link_to 'Back', fish_index_path %>
