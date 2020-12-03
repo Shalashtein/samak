@@ -1,4 +1,4 @@
-class CatchPolicy < ApplicationPolicy
+class ProductPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
