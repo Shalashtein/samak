@@ -1,4 +1,4 @@
-class ApplicationPolicy
+class CartPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,15 +7,15 @@ class ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin? or @record.user_id == @user.id
   end
 
   def show?
-    true
+    @user.admin? or @record.user_id == @user.id
   end
 
   def create?
-    @user.admin?
+    true
   end
 
   def new?
@@ -23,7 +23,7 @@ class ApplicationPolicy
   end
 
   def update?
-    @user.admin?
+    @user.admin? or @record.user_id == @user.id
   end
 
   def edit?
@@ -45,17 +45,5 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
-  end
-
-  def dashboard?
-    @user.admin?
-  end
-
-  def export?
-    @user.admin?
-  end
-
-  def show_in_app?
-    @user.admin?
   end
 end

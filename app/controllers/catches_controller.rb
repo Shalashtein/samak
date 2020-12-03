@@ -5,27 +5,31 @@ class CatchesController < ApplicationController
   # GET /catches.json
   def index
     @catches = Catch.all
+    authorize @catches, policy_class: CatchPolicy
   end
 
   # GET /catches/1
   # GET /catches/1.json
   def show
+    authorize @catch, policy_class: CatchPolicy
   end
 
   # GET /catches/new
   def new
     @catch = Catch.new
+    authorize @catch, policy_class: CatchPolicy
   end
 
   # GET /catches/1/edit
   def edit
+    authorize @catch, policy_class: CatchPolicy
   end
 
   # POST /catches
   # POST /catches.json
   def create
     @catch = Catch.new(catch_params)
-
+    authorize @catch, policy_class: CatchPolicy
     respond_to do |format|
       if @catch.save
         format.html { redirect_to @catch, notice: 'Catch was successfully created.' }
@@ -40,6 +44,7 @@ class CatchesController < ApplicationController
   # PATCH/PUT /catches/1
   # PATCH/PUT /catches/1.json
   def update
+    authorize @catch, policy_class: CatchPolicy
     respond_to do |format|
       if @catch.update(catch_params)
         format.html { redirect_to @catch, notice: 'Catch was successfully updated.' }
@@ -54,6 +59,7 @@ class CatchesController < ApplicationController
   # DELETE /catches/1
   # DELETE /catches/1.json
   def destroy
+    authorize @catch, policy_class: CatchPolicy
     @catch.destroy
     respond_to do |format|
       format.html { redirect_to catches_url, notice: 'Catch was successfully destroyed.' }

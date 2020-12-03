@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :carts
+  resources :products
   resources :catches
   resources :fish
   mount RailsAdmin::Engine => '/god', as: 'rails_admin'

@@ -1,4 +1,4 @@
-class ApplicationPolicy
+class CatchPolicy < ApplicationPolicy
   attr_reader :user, :record
 
   def initialize(user, record)
@@ -7,15 +7,15 @@ class ApplicationPolicy
   end
 
   def index?
-    true
+    @user.admin? or @user.fisherman?
   end
 
   def show?
-    true
+    @user.admin? or @user.fisherman?
   end
 
   def create?
-    @user.admin?
+    @user.admin? or @user.fisherman?
   end
 
   def new?
@@ -23,7 +23,13 @@ class ApplicationPolicy
   end
 
   def update?
-    @user.admin?
+    if @user.admin?
+      true
+    elsif @user.fisherman? and @record.user_id == @user.user_id
+      true
+    else
+      false
+    end
   end
 
   def edit?
@@ -31,7 +37,13 @@ class ApplicationPolicy
   end
 
   def destroy?
-    @user.admin?
+    if @user.admin?
+      true
+    elsif @user.fisherman? and @record.user_id == @user.user_id
+      true
+    else
+      false
+    end
   end
 
   class Scope
@@ -45,17 +57,5 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
-  end
-
-  def dashboard?
-    @user.admin?
-  end
-
-  def export?
-    @user.admin?
-  end
-
-  def show_in_app?
-    @user.admin?
   end
 end
