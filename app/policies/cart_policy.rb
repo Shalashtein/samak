@@ -7,7 +7,7 @@ class CartPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.admin? or @record.user_id == @user.id
+    @user.admin?
   end
 
   def show?
@@ -15,6 +15,10 @@ class CartPolicy < ApplicationPolicy
   end
 
   def create?
+    true
+  end
+
+  def add?
     true
   end
 
