@@ -31,7 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # User Authentication
 gem 'devise'
 # Admin Dashboard
-gem 'rails_admin', '~> 2.0'
+gem 'rails_admin', '~> 2.0', git: 'https://github.com/sferik/rails_admin.git'
 # Authorization with pundit
 gem "pundit"
 # Model history tracker

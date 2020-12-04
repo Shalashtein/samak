@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_125716) do
+ActiveRecord::Schema.define(version: 2020_12_04_091920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "carts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "products_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["products_id"], name: "index_carts_on_products_id"
+    t.bigint "items_id"
+    t.index ["items_id"], name: "index_carts_on_items_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -44,6 +44,36 @@ ActiveRecord::Schema.define(version: 2020_12_02_125716) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "cart_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["cart_id"], name: "index_items_on_cart_id"
+    t.index ["product_id"], name: "index_items_on_product_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "lat"
+    t.string "long"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_locations_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "location_id", null: false
+    t.boolean "done"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_orders_on_location_id"
+    t.index ["product_id"], name: "index_orders_on_product_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -80,9 +110,15 @@ ActiveRecord::Schema.define(version: 2020_12_02_125716) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "carts", "products", column: "products_id"
+  add_foreign_key "carts", "items", column: "items_id"
   add_foreign_key "carts", "users"
   add_foreign_key "catches", "fish"
   add_foreign_key "catches", "users"
+  add_foreign_key "items", "carts"
+  add_foreign_key "items", "products"
+  add_foreign_key "locations", "users"
+  add_foreign_key "orders", "locations"
+  add_foreign_key "orders", "products"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "catches"
 end

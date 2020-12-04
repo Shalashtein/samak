@@ -1,5 +1,5 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "#", class: "navbar-brand" do %>
+  <%= link_to root_path, class: "navbar-brand" do %>
     LOGO
     <% end %>
 
@@ -11,6 +11,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
+      <% if controller.controller_name == "pages" && controller.action_name == "market" %>
         <li class="nav-item cart-container"  data-toggle="modal" data-target="#cart-modal">
           <i class="fas fa-shopping-cart"></i>
         </li>
@@ -25,7 +26,13 @@
                 </button>
               </div>
               <div class="modal-body">
-                ...
+                <ul>
+                  <% @current_cart.items.each do |item| %>
+                    <li>
+                      <%= item.product.catch.fish.english %>
+                    </li>
+                  <% end %>
+              </ul>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -33,6 +40,7 @@
             </div>
           </div>
         </div>
+        <% end %>
         <li class="nav-item active">
           <%= link_to "Home", "#", class: "nav-link" %>
         </li>

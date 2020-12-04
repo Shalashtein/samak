@@ -4,7 +4,8 @@
 <ul>
   <% @products.each do |p| %>
   <li>
-    <%= p.catch.fish.english %>
+    <%= p.id %>
+    <%= p.catch.fish.english %> <%= link_to items_path(item: {product_id: p.id, cart_id: @current_cart.id}), method: :post do %> <i class='fas fa-plus'></i> <% end %>
   </li>
   <% end %>
 </ul>

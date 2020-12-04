@@ -7,7 +7,7 @@
 
 <p>
   <strong>Products:</strong>
-  <%= @cart.products_id %>
+  <%= @cart.items.product unless @cart.items.first.nil?%>
 </p>
 
 <%= link_to 'Edit', edit_cart_path(@cart) %> |

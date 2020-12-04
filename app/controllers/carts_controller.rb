@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:show, :edit, :update, :destroy, :add]
 
   # GET /carts
   # GET /carts.json
@@ -12,6 +12,10 @@ class CartsController < ApplicationController
   # GET /carts/1.json
   def show
     authorize @cart, policy_class: CartPolicy
+  end
+
+  def add_to_cart
+    @current_cart.add_item(params[:product_id])
   end
 
   # GET /carts/new

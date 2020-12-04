@@ -14,9 +14,16 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    @current_cart ||= Cart.find(session[:cart_id])
+    unless @current_cart.items.first.nil?
+      @current_cart.items.each do |i|
+        i.destroy
+      end
+      @current_cart.destroy
+    end
+    super
+  end
 
   # protected
 

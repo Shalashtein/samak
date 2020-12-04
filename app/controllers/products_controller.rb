@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    authorize @product, policy_class: ProductPolicy
   end
 
   # GET /products/new
@@ -20,7 +21,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    authorize @product, policy_class: CatchPolicy
+    authorize @product, policy_class: ProductPolicy
   end
 
   # POST /products
