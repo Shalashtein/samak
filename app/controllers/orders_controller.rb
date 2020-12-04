@@ -8,6 +8,15 @@ class OrdersController < ApplicationController
     authorize @orders, policy_class: OrderPolicy
   end
 
+  def order
+    params.permit(:cart)
+    puts params[:cart].items.product.each do |x|
+      puts "XXXXXXXXXXXXX"
+      puts x
+      puts "XXXXXXXXXXXXX"
+    end
+  end
+
   # GET /orders/1
   # GET /orders/1.json
   def show
