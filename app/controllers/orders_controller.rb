@@ -10,11 +10,19 @@ class OrdersController < ApplicationController
 
   def order
     params.permit(:cart)
-    puts params[:cart].items.product.each do |x|
-      puts "XXXXXXXXXXXXX"
-      puts x
-      puts "XXXXXXXXXXXXX"
+    c = Cart.find(params[:cart])
+    ordered = []
+    c.items.each do |i|
+      o = Order.new
+      o.user_id = current_user.id
+      o.product_id = i.product.id
+      o.location_id = 1
+      o.done = false
+      o.save!
+      ordered << o
+      i.destroy
     end
+    redirect_to root_path, success: "All items have been ordered. Please check the orders tab to track them"
   end
 
   # GET /orders/1

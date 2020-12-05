@@ -16,7 +16,7 @@ class FishpicUploader < CarrierWave::Uploader::Base
   end
 
   def public_id
-    return "" + model.class.name + model.id
+    return "#{model.class.name} #{model.id}"
   end
 
   # Choose what kind of storage to use for this uploader:

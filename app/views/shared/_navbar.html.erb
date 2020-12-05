@@ -1,6 +1,6 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-expand-sm navbar-dark navbar-lewagon">
   <%= link_to root_path, class: "navbar-brand" do %>
-    LOGO
+    SAMAK
     <% end %>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
               </ul>
               </div>
               <div class="modal-footer">
-                <%= link_to order_all_path(cart: {cart_id: @current_cart.id}), method: :post do %> <i class='fas fa-plus'></i> <% end %>
+                <%= link_to order_all_path(cart: @current_cart.id), method: :post do %> <i class='fas fa-plus'></i> <% end %>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
