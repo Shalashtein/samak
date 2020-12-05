@@ -32,7 +32,7 @@
 
 <p>
   <strong>Image:</strong>
-  <%= image_tag(@fish.image_url) %>
+  <%= image_tag(@fish.image.url) unless @fish.image.url.nil?%>
 </p>
 
 <%= link_to 'Edit', edit_fish_path(@fish) %> |

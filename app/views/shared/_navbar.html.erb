@@ -47,16 +47,20 @@
         </button>
       </div>
       <div class="modal-body">
+        <% unless @current_cart.nil? %>
         <ul>
-          <% @current_cart.items.each do |item| %>
+          <% @current_cart.items.each do |item|%>
             <li>
               <%= item.product.catch.fish.english %>
             </li>
           <% end %>
-      </ul>
+        </ul>
+        <% end %>
       </div>
       <div class="modal-footer">
-        <%= link_to order_all_path(cart: @current_cart.id), method: :post do %> <i class='fas fa-plus'></i> <% end %>
+        <% unless @current_cart.nil? %>
+          <%= link_to order_all_path(cart: @current_cart.id), method: :post do %> <i class='fas fa-plus'></i> <% end %>
+          <% end %>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
