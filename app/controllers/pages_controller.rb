@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_action :current_cart, only: [ :market ]
+  layout 'market'
 
   def current_cart
     if session[:cart_id] && !Cart.find(session[:cart_id]).nil?

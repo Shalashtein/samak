@@ -6,7 +6,16 @@
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
-
+.btn-ghost-login {
+  border: 2px solid black;
+  padding: 8px 24px;
+  border-radius: 50px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+.btn-margins{
+  margin: 10px;
+}
 .btn-ghost:hover {
   opacity: 1;
   color: #ed2828;
