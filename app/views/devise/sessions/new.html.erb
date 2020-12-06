@@ -14,12 +14,12 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit, "Log in", class: "btn btn-ghost btn-margins" %>
+      <%= f.button :submit, "Log in", class: "btn btn-ghost" %>
     </div>
   <% end %>
   </div>
   <div class="login-footer">
-    <%= button_to "New here? Click here to signup", new_user_registration_path, method: :get, class: "btn btn-ghost-login btn-margins" %>
+    <%= link_to "New here? Click here to signup", new_user_registration_path, method: :get %> <br>
     <%= link_to "forgot password?", new_user_password_path, method: :get %>
   </div>
 </div>
