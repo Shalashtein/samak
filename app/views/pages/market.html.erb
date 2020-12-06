@@ -2,14 +2,22 @@
   <div class="container">
     <h1>Samak: connecting <strong>you</strong> to your local<strong> fisherman</strong>!</h1>
     <p>Fresher, Healthier, Local fish delivered to your doorstep</p>
-    <a class="btn btn-ghost" href="#">Browse Today's Fish</a>
+    <a class="btn btn-ghost" href="#market-section">Browse Today's Fish</a>
   </div>
 </div>
 
-<h1>Pages#Market</h1>
-
-<% @products.each do |p| %>
-<h4><%= p.catch.fish.english %></h4>
-<%= image_tag(p.catch.fish.image.url) %>
-<%= link_to items_path(item: {product_id: p.id, cart_id: @current_cart.id}), method: :post do %> <i class='fas fa-plus'></i> <% end %>
- <% end %>
+<div class="market-header" id="market-section">
+<hr><h1> 🐟 Today's Catch 🐟 </h1><hr>
+</div>
+<div class="products-area">
+    <% @products.each do |p| %>
+        <div class="inside-card">
+          <%= image_tag(p.catch.fish.image.url, class: "product-image") %>
+          <span class="fish-name"><span><%= p.catch.fish.english %></span></span>
+          <span class="fish-price"><span><%= "#{p.catch.weight}Kg for #{p.price * p.catch.weight}$" %></span></span>
+          <span class="add-to-cart-button">
+             <%= link_to items_path(item: {product_id: p.id, cart_id: @current_cart.id}), method: :post do %> <button class="btn btn-ghost add-to-cart-button-text">Add to cart</button> <% end %>
+          </span>
+        </div>
+    <% end %>
+</div>
