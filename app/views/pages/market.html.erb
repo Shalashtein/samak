@@ -14,7 +14,7 @@
         <div class="inside-card">
           <%= image_tag(p.catch.fish.image.url, class: "product-image") %>
           <span class="fish-name"><span><%= p.catch.fish.english %></span></span>
-          <span class="fish-price"><span><%= "#{p.catch.weight}kg for #{p.price * p.catch.weight}$" %></span></span>
+          <span class="fish-price"><span><%= "#{p.catch.weight}kg for #{p.price * p.catch.weight}LBP" %></span></span>
           <span class="add-to-cart-button">
              <%= link_to items_path(item: {product_id: p.id, cart_id: @current_cart.id}), method: :post do %> <button class="btn btn-ghost add-to-cart-button-text">Add to cart</button> <% end %>
           </span>

@@ -1,14 +1,38 @@
+<div id="checkout-carousel" class="carousel slide" data-ride="false" data-wrap="false" data-interval="false">
+  <ol class="carousel-indicators">
+    <li data-target="#checkout-carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#checkout-carousel" data-slide-to="1"></li>
+    <li data-target="#checkout-carousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active first">
+        <div class="carousel-title">
+          <h2>Items in Cart</h2>
+        </div>
+        <div class="carousel-body">
+          <ul>
+          <% @cart.items.each do |i| %>
+            <li class="carousel-line-item">
+              <%= "#{i.product.catch.weight}kg of #{i.product.catch.fish.english} for #{i.product.catch.weight*i.product.price}LBP" %>
+              <span class="remove-line-item">
+                <%= link_to "remove", i, method: :delete, class: "remove-line-item" %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "Pick Delivery Options", "#checkout-carousel", {"data-slide-to" => "1", role: "button", class: "btn btn-primary"}%>
+        </div>
+    </div>
+    <div class="carousel-item second">
+      <div id="map"
+       data-markers="<%= @markers.to_json %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+        <%= link_to "Choose Payment Method", "#checkout-carousel", {"data-slide-to" => "2", role: "button", class: "btn btn-primary btn-none", id: "pay-button"}%>
+    </div>
+    <div class="carousel-item third">
+
+    </div>
+  </div>
+</div>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>User:</strong>
-  <%= @cart.user_id %>
-</p>
-
-<p>
-  <strong>Products:</strong>
-  <%= @cart.items.product unless @cart.items.first.nil?%>
-</p>
-
-<%= link_to 'Edit', edit_cart_path(@cart) %> |
-<%= link_to 'Back', carts_path %>

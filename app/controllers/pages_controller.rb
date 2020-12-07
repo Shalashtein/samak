@@ -11,10 +11,18 @@ class PagesController < ApplicationController
       @current_cart.save!
       session[:cart_id] = @current_cart.id
     end
+    @cart_total = 0
+    @current_cart.items.each do |i|
+      @cart_total += i.product.price * i.product.catch.weight
+    end
     @current_cart
   end
 
   def market
     @products = Product.all
+  end
+
+  def bucket
+
   end
 end

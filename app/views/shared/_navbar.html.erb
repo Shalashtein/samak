@@ -50,18 +50,21 @@
         <% unless @current_cart.nil? %>
         <ul>
           <% @current_cart.items.each do |item|%>
-            <li>
-              <%= item.product.catch.fish.english %>
+            <li class="modal-cart-row">
+              <span class="line-item"><%= "#{item.product.catch.weight}kg of #{item.product.catch.fish.english} for #{item.product.catch.weight*item.product.price}LBP" %></span>
+              <span class="line-remove"> <%= link_to "remove", item, method: :delete%> </span>
             </li>
           <% end %>
         </ul>
+        <hr>
+        Total Price: <%= @cart_total %> LBP
         <% end %>
       </div>
       <div class="modal-footer">
         <% unless @current_cart.nil? %>
           <%= link_to order_all_path(cart: @current_cart.id), method: :post do %> <i class='fas fa-plus'></i> <% end %>
           <% end %>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= button_to "Checkout", @current_cart, method: :get, class: "btn btn-primary"%>
       </div>
     </div>
   </div>

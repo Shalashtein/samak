@@ -1,0 +1,99 @@
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
+.carousel-item{
+  width: 100%;
+  height: 100vh;
+}
+.first{
+  padding-top: 30px;
+  padding-right: 20px;
+}
+.second{
+  padding: 20px;
+}
+
+.carousel-title{
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+
+.carousel-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.carousel-body > ul{
+  list-style-type: none;
+  width:100%;
+  display:flex;
+  align-items:center;
+  flex-direction: column;
+}
+.carousel-line-item{
+  background-color: rgba(0,0,200,0.3);
+  margin: 5px;
+  border-radius: 10px;
+  padding:10px;
+  color: white;
+  display:flex;
+  justify-content: space-between;
+  width: 100%;
+}
+@media only screen and (min-width: 768px){
+  .carousel-line-item{
+    width:50%
+  }
+}
+.carousel-indicators li {
+  background-color: #f00;
+}
+#map, .mapboxgl-canvas{
+  width: 100% !important;
+  height: 100% !important;
+}
+.mapboxgl-ctrl-logo, .mapbox-improve-map, .mapboxgl-ctrl-attrib-button, .mapboxgl-ctrl-attrib-inner, .mapboxgl-compact{
+  display: none !important;
+}
+ .fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  }
+  @-webkit-keyframes fadeInUp {
+  0% {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+  }
+  100% {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+  }
+  }
+  @keyframes fadeInUp {
+  0% {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+  }
+  100% {
+  opacity: 1;
+  -webkit-transform: none;
+  transform: none;
+  }
+  }
+.popup-styled, .mapboxgl-popup-tip, .mapboxgl-popup-content{
+  background-color: transparent !important;
+  border-top-color: transparent !important;
+}
