@@ -11,6 +11,7 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    @location = Location.new
     authorize @cart, policy_class: CartPolicy
   end
 

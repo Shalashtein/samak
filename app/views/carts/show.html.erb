@@ -5,7 +5,7 @@
     <li data-target="#checkout-carousel" data-slide-to="2"></li>
   </ol>
   <div class="carousel-inner">
-    <div class="carousel-item active first">
+    <div class="carousel-item active">
         <div class="carousel-title">
           <h2>Items in Cart</h2>
         </div>
@@ -20,18 +20,66 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to "Pick Delivery Options", "#checkout-carousel", {"data-slide-to" => "1", role: "button", class: "btn btn-primary"}%>
+        <%= link_to "Pick Delivery Options", "#checkout-carousel", {"data-slide-to" => "1", role: "button", class: "btn btn-primary"} %>
         </div>
     </div>
-    <div class="carousel-item second">
+    <div class="carousel-item">
+      <%= simple_form_for(@location, remote: true) do |f| %>
+          <%= f.hidden_field :lat %>
+          <%= f.hidden_field :long %>
+          <%= f.hidden_field :user_id, value: @current_user.id %>
+          <%= f.button :submit, id: 'hidden_submit_button', style: 'display: none;' %>
+        <% end %>
       <div id="map"
        data-markers="<%= @markers.to_json %>"
        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
       </div>
-        <%= link_to "Choose Payment Method", "#checkout-carousel", {"data-slide-to" => "2", role: "button", class: "btn btn-primary btn-none", id: "pay-button"}%>
     </div>
-    <div class="carousel-item third">
-
+    <div class="carousel-item">
+      <% total = 0 %>
+      <% @cart.items.each do |i| %>
+        <% line_total = i.product.catch.weight * i.product.price %>
+        <% total += line_total %>
+      <% end %>
+      <div class="third">
+        <div class="third-header">
+        <h2>Payment Method</h2>
+      </div>
+      <div class="third-body">
+        <button class="btn btn-secondary payment-option" type="button" data-toggle="collapse" data-target="#cash-on-delivery" aria-expanded="false" aria-controls="cash-on-delivery">
+          Cash on Delivery
+        </button>
+        <div class="collapse-option collapse" id="cash-on-delivery">
+          <div class="card card-body">
+            <% @cart.items.each do |i| %>
+              <% line_total = i.product.catch.weight * i.product.price %>
+              <%= "#{i.product.catch.weight}kg of #{i.product.catch.fish.english} for #{line_total}LBP" %>
+              <hr>
+            <% end %>
+            Delivery charge: 5000LBP
+            <hr>
+            <span class="total-payment">
+              <span>Total: <%= total+5000 %>LBP</span>
+              <button>Order all items</button>
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-secondary payment-option" type="button" data-toggle="collapse" data-target="#bitcoin" aria-expanded="false" aria-controls="bitcoin">
+          Pay with Bitcoins
+        </button>
+        <div class="collapse-option collapse" id="bitcoin">
+          <div class="card card-body">
+            <div class=bitcoin-collapse>
+              <div class=qr-code>
+                <%= image_tag('qr.png') %>
+              </div>
+            </div>
+            <hr>
+            Scan the QR code to make the payment
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
   </div>
 </div>

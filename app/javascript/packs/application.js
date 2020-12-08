@@ -30,7 +30,12 @@ import "bootstrap";
 // import { initSelect2 } from '../components/init_select2';
 // MapBox
 import { initMapbox } from './init_mapbox';
-
+jQuery('.payment-option').click( function(e) {
+    jQuery('.collapse-option').collapse('hide');
+});
+jQuery('#pay-button').click( function(e) {
+    console.log('clicked');
+});
 document.addEventListener('turbolinks:load', () => {
   initMapbox();
 });

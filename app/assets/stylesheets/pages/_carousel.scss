@@ -8,15 +8,8 @@ html {
 .carousel-item{
   width: 100%;
   height: 100vh;
+  padding: 30px;
 }
-.first{
-  padding-top: 30px;
-  padding-right: 20px;
-}
-.second{
-  padding: 20px;
-}
-
 .carousel-title{
   width: 100%;
   display:flex;
@@ -96,4 +89,41 @@ html {
 .popup-styled, .mapboxgl-popup-tip, .mapboxgl-popup-content{
   background-color: transparent !important;
   border-top-color: transparent !important;
+}
+.third{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.third-header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.third-body{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@media only screen and (min-width: 768px){
+  .third-body{
+    align-items: center;
+    width:50%
+  }
+}
+.third-body > button{
+    width: 100%;
+    margin-bottom: 5px;
+  }
+.total-payment{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bitcoin-collapse{
+  display: flex;
+  justify-content: center;
+}
+.qr-code{
+  padding: 10px;
 }

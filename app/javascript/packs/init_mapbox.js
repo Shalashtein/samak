@@ -30,13 +30,15 @@ const initMapbox = () => {
         y[0].remove();
       }
       var popup = new mapboxgl.Popup({ closeOnClick: false, closeButton: false, className: "popup-styled" })
-      .setHTML('<a data-slide-to="2" role="button" class="btn btn-primary fadeInUp" id="pay-button" href="#checkout-carousel">Choose Payment Method</a>');
+      .setHTML(`<a data-slide-to="2" role="button" class="btn btn-primary fadeInUp" id="pay-button" href="#checkout-carousel" onclick="document.getElementById('hidden_submit_button').click(); console.log('clicked'); return false;">Choose Payment Method</a>`);
       var marker = new mapboxgl.Marker()
       .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
       .setPopup(popup)
       .addTo(map)
       .togglePopup();
       var next = document.getElementById("pay-button");
+      document.getElementById("location_lat").value = e.lngLat.wrap().lat;
+      document.getElementById("location_long").value = e.lngLat.wrap().lng;
       if (next.classList.contains("btn-none")){
         next.classList.remove("btn-none");
         next.classList.toggle("fadeInUp");
