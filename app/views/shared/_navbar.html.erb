@@ -10,11 +10,11 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-      <% if controller.controller_name == "pages" && controller.action_name == "market" %>
-        <li class="nav-item cart-container"  data-toggle="modal" data-target="#cart-modal">
-          <i class="fas fa-shopping-cart"></i> <span class="badge badge-light"><%= @current_cart.items.count %></span>
-        </li>
+      <% if !current_user.fisherman? %>
+        <% if controller.controller_name == "pages" && controller.action_name == "market" %>
+          <li class="nav-item cart-container"  data-toggle="modal" data-target="#cart-modal">
+            <i class="fas fa-shopping-cart"></i> <span class="badge badge-light"><%= @current_cart.items.count %></span>
+          </li>
         <% end %>
         <li class="nav-item <%= 'active' if controller.controller_name == 'pages' && controller.action_name == 'market' %>">
           <%= link_to "Market", root_path, class: "nav-link" %>
@@ -22,18 +22,19 @@
         <li class="nav-item  <%= 'active' if controller.controller_name == 'orders' && controller.action_name == 'index' %>">
           <%= link_to "Orders", orders_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
-        </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          <%= link_to "Bucket", bucket_path, class: "nav-link" %>
         </li>
       <% end %>
+       <li class="nav-item">
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
+      </li>
     </ul>
   </div>
 </div>
 <!-- Modal -->
+<% if user_signed_in? %>
 <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog" aria-labelledby="cart-modal-title" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -63,3 +64,4 @@
     </div>
   </div>
 </div>
+<% end %>

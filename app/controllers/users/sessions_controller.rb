@@ -16,10 +16,12 @@ module Users
 
     # DELETE /resource/sign_out
     def destroy
-      @current_cart ||= Cart.find(session[:cart_id])
-      unless @current_cart.items.first.nil?
-        @current_cart.items.each(&:destroy)
-        @current_cart.destroy
+      unless session[:cart_id].nil?
+        @current_cart ||= Cart.find(session[:cart_id])
+        unless @current_cart.items.first.nil?
+          @current_cart.items.each(&:destroy)
+          @current_cart.destroy
+        end
       end
       super
     end
