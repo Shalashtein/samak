@@ -16,10 +16,10 @@
           <i class="fas fa-shopping-cart"></i> <span class="badge badge-light"><%= @current_cart.items.count %></span>
         </li>
         <% end %>
-        <li class="nav-item <%= "active" if controller.controller_name == "pages" && controller.action_name == "market" %>">
-          <%= link_to "Market", "#", class: "nav-link" %>
+        <li class="nav-item <%= 'active' if controller.controller_name == 'pages' && controller.action_name == 'market' %>">
+          <%= link_to "Market", root_path, class: "nav-link" %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item  <%= 'active' if controller.controller_name == 'orders' && controller.action_name == 'index' %>">
           <%= link_to "Orders", orders_path, class: "nav-link" %>
         </li>
         <li class="nav-item">

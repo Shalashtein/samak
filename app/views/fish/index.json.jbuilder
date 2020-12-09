@@ -1,1 +1,1 @@
-json.array! @fish, partial: "fish/fish", as: :fish
+json.array! @fish, partial: 'fish/fish', as: :fish

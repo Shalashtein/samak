@@ -1,15 +1,22 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[show edit update destroy]
+  layout 'market'
 
   # GET /orders
   # GET /orders.json
   def index
-    if current_user.admin?
-      @orders = Order.all
-    else
-      @orders = Order.where(user_id: current_user.id)
-    end
+    @orders = if current_user.admin?
+                Order.where(reviewed: false)
+              else
+                Order.where(user_id: current_user.id, reviewed: false)
+              end
+    @history = if current_user.admin?
+                Order.where(reviewed: true).sort_by {|u| [u.updated_at].max}
+              else
+                Order.where(user_id: current_user.id, reviewed: true).sort_by {|u| [u.updated_at].max}
+              end
     authorize @orders, policy_class: OrderPolicy
+    authorize @history, policy_class: OrderPolicy
   end
 
   # GET /orders/1
@@ -54,7 +61,7 @@ class OrdersController < ApplicationController
       o.save!
       i.destroy
     end
-    redirect_to orders_path, success: "All items have been ordered."
+    redirect_to orders_path, success: 'All items have been ordered.'
   end
 
   # PATCH/PUT /orders/1

@@ -31,10 +31,36 @@ import "bootstrap";
 // MapBox
 import { initMapbox } from './init_mapbox';
 jQuery('.payment-option').click( function(e) {
-    jQuery('.collapse-option').collapse('hide');
+  jQuery('.collapse-option').collapse('hide');
 });
 jQuery('#pay-button').click( function(e) {
-    console.log('clicked');
+  console.log('clicked');
+});
+jQuery('#active-order-tab').click( function(e) {
+  console.log("Clicked on Active tab");
+ if(!jQuery("#history-order-list").hasClass("noshow")){
+  console.log("History Tab does not have noshow class, adding...");
+  jQuery("#history-order-list").addClass("noshow");
+  console.log("Added noshow class to History tab");
+  }
+  if(jQuery("#active-order-list").hasClass("noshow")){
+    console.log("Active Tab has noshow class, removing...");
+  jQuery("#active-order-list").removeClass("noshow");
+  console.log("Removed noshow class from active");
+  }
+});
+jQuery('#history-order-tab').click( function(e) {
+  console.log("Clicked on History tab");
+ if(!jQuery("#active-order-list").hasClass("noshow")){
+  console.log("Active Tab does not have noshow class, adding..");
+  jQuery("#active-order-list").addClass("noshow");
+  console.log("Added noshow class to Active tab");
+  }
+  if(jQuery("#history-order-list").hasClass("noshow")){
+    console.log("History Tab has noshow class, removing...");
+    jQuery("#history-order-list").removeClass("noshow");
+    console.log("Removed noshow class from history");
+  }
 });
 document.addEventListener('turbolinks:load', () => {
   initMapbox();

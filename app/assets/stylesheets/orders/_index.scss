@@ -1,0 +1,16 @@
+.order-show-container{
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  margin-top: 60px;
+}
+.order-body-container-active, .order-body-container-history{
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.noshow{
+  display: none;
+}

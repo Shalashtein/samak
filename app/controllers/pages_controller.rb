@@ -20,6 +20,5 @@ class PagesController < ApplicationController
     @products = Product.all
   end
 
-  def bucket
-  end
+  def bucket; end
 end

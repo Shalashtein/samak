@@ -1,33 +1,56 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Orders</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Product</th>
-      <th>Location</th>
-      <th>Done</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.user_id %></td>
-        <td><%= order.product_id %></td>
-        <td><%= order.location_id %></td>
-        <td><%= order.done %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="order-show-container">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link active" href="#" id="active-order-tab" onclick="return false;">Active Orders</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="history-order-tab" onclick="return false;">Order History</a>
+    </li>
+  </ul>
+  <div class="order-body-container-active" id="active-order-list">
+    <% @orders.each do |o| %>
+      <div class="card">
+        <div class="card-header">
+          <%= "#{o.product.catch.weight}kg of #{o.product.catch.fish.english}" %>
+        </div>
+        <div class="card-body">
+          <p>
+            <% if o.done? %>
+              <%= "Delivered! Please submit your review to finalize order" %>
+            <% elsif o.picked? %>
+              <%= "Order on its way" %>
+            <% elsif o.accepted %>
+              <%= "Order accepted, picking up item" %>
+            <% else %>
+              <%= "Processing order" %>
+            <% end %>
+          </p>
+          <div class="progress">
+            <% progress_one = o.accepted? ? 30 : 0 %>
+            <% progress_two = o.picked? ? 30 : 0 %>
+            <% progress_three = o.done? ? 40 : 0 %>
+            <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= progress_one %>%" aria-valuenow="<%= progress_one %>" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= progress_two %>%" aria-valuenow="<%= progress_two %>" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: <%= progress_three %>%" aria-valuenow="<%= progress_three %>" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+  <div class="order-body-container-history noshow" id="history-order-list">
+    <% @history.each do |h| %>
+      <div class="card">
+        <div class="card-header">
+          <%= "#{h.product.catch.weight}kg of #{h.product.catch.fish.english}" %>
+        </div>
+        <div class="card-body">
+          <p>
+            <%= "Delivered on #{h.updated_at}" %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+<p id="notice"><%= notice %></p>

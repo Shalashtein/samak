@@ -20,7 +20,11 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to "Pick Delivery Options", "#checkout-carousel", {"data-slide-to" => "1", role: "button", class: "btn btn-primary"} %>
+        <% if @cart.items.first.nil? %>
+          <%= link_to "Your cart is empty, return home", root_path, { class: "btn btn-primary" } %>
+        <% else %>
+          <%= link_to "Pick Delivery Options", "#checkout-carousel", {"data-slide-to" => "1", role: "button", class: "btn btn-primary"} %>
+        <% end %>
         </div>
     </div>
     <div class="carousel-item">

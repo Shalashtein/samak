@@ -5,8 +5,8 @@ html{
   scroll-behavior: smooth !important;
 }
 body{
-background-color: #fff7f7;
-background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff0000' fill-opacity='0.01' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: #fff7f7;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff0000' fill-opacity='0.01' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .banner {
   background-size: cover;
@@ -62,7 +62,7 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
   border-radius: 10px;
   margin: 10px;
   width: 100%;
-  box-shadow: 0px 22px 27px -21px rgba(255,0,0,1);
+  box-shadow: 0px 22px 27px -21px rgba(255,0,0,0.5);
   padding: 10px;
   border: 2px solid rgba(255, 167, 167,0.5)
 }

@@ -1,1 +1,1 @@
-json.array! @catches, partial: "catches/catch", as: :catch
+json.array! @catches, partial: 'catches/catch', as: :catch

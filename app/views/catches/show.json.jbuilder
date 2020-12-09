@@ -1,1 +1,1 @@
-json.partial! "catches/catch", catch: @catch
+json.partial! 'catches/catch', catch: @catch
