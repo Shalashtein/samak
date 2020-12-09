@@ -1,5 +1,5 @@
 class CatchesController < ApplicationController
-  before_action :set_catch, only: [:show, :edit, :update, :destroy]
+  before_action :set_catch, only: %i[show edit update destroy]
 
   # GET /catches
   # GET /catches.json
@@ -68,13 +68,14 @@ class CatchesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_catch
-      @catch = Catch.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def catch_params
-      params.require(:catch).permit(:user_id, :fish_id, :weight)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_catch
+    @catch = Catch.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def catch_params
+    params.require(:catch).permit(:user_id, :fish_id, :weight)
+  end
 end

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:sessions => "users/sessions"}
   root to: 'pages#bucket', constraints: lambda { |request| request.env['warden'].user.fisherman? unless request.env['warden'].user.nil? }, as: "bucket"
   root to: 'pages#market'
-  post '/order/all', to: 'orders#order'
+  post '/location/set', to: 'locations#set_loc'
+  post '/order/multiple', to: 'orders#multiple'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

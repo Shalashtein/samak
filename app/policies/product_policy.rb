@@ -25,7 +25,7 @@ class ProductPolicy < ApplicationPolicy
   def update?
     if @user.admin?
       true
-    elsif @user.fisherman? and @record.user_id == @user.user_id
+    elsif @user.fisherman? && (@record.user_id == @user.user_id)
       true
     else
       false
@@ -39,7 +39,7 @@ class ProductPolicy < ApplicationPolicy
   def destroy?
     if @user.admin?
       true
-    elsif @user.fisherman? and @record.user_id == @user.user_id
+    elsif @user.fisherman? && (@record.user_id == @user.user_id)
       true
     else
       false

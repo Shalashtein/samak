@@ -1,5 +1,5 @@
 class FishController < ApplicationController
-  before_action :set_fish, only: [:show, :edit, :update, :destroy]
+  before_action :set_fish, only: %i[show edit update destroy]
 
   # GET /fish
   # GET /fish.json
@@ -70,13 +70,14 @@ class FishController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fish
-      @fish = Fish.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def fish_params
-      params.require(:fish).permit(:scientific, :english, :lebanese, :water, :texture, :flavor, :image)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fish
+    @fish = Fish.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def fish_params
+    params.require(:fish).permit(:scientific, :english, :lebanese, :water, :texture, :flavor, :image)
+  end
 end

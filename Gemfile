@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.6'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Use postgresql as the database for Active Record
@@ -32,7 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 # Admin Dashboard
 gem 'rails_admin', '~> 2.0', git: 'https://github.com/sferik/rails_admin.git'
-gem 'rails_admin_softwarebrothers_theme', :git => 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
+gem 'rails_admin_softwarebrothers_theme', git: 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 # Authorization with pundit
 gem "pundit"
 # Model history tracker
@@ -45,12 +44,13 @@ gem 'cloudinary'
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
-group :development, :test do  gem 'pry-byebug'
+group :development, :test do
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
@@ -69,4 +69,3 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
-

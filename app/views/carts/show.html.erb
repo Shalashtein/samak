@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="carousel-item">
-      <%= simple_form_for(@location, remote: true) do |f| %>
+      <%= simple_form_for(@location, remote: true, url: url_for(:action => 'set_loc', :controller => 'locations')) do |f| %>
           <%= f.hidden_field :lat %>
           <%= f.hidden_field :long %>
           <%= f.hidden_field :user_id, value: @current_user.id %>
@@ -60,7 +60,7 @@
             <hr>
             <span class="total-payment">
               <span>Total: <%= total+5000 %>LBP</span>
-              <button>Order all items</button>
+              <%= button_to "Order all items", order_multiple_path(order: {user_id: current_user.id, cart: @cart.id, location_id: Location.where(user_id: current_user.id).first.id}), method: :post, class: 'btn btn-primary' %>
             </span>
           </div>
         </div>

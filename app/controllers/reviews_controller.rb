@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: %i[show edit update destroy]
 
   # GET /reviews
   # GET /reviews.json
@@ -62,13 +62,14 @@ class ReviewsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_review
-      @review = Review.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def review_params
-      params.require(:review).permit(:content, :rating, :reviewer_id, :fisherman_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_review
+    @review = Review.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def review_params
+    params.require(:review).permit(:content, :rating, :reviewer_id, :fisherman_id)
+  end
 end

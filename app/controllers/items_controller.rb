@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: %i[show edit update destroy]
   before_action :skip_authorization
 
   # GET /items
@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to root_path, success: "" + @item.product.catch.fish.english + " added to cart" }
+        format.html { redirect_to root_path, success: "#{@item.product.catch.fish.english} added to cart" }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -64,13 +64,14 @@ class ItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_item
-      @item = Item.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:product_id, :cart_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def item_params
+    params.require(:item).permit(:product_id, :cart_id)
+  end
 end

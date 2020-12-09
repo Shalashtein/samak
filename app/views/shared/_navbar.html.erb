@@ -20,10 +20,7 @@
           <%= link_to "Market", "#", class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Orders", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Profile", "#", class: "nav-link" %>
+          <%= link_to "Orders", orders_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
@@ -61,10 +58,7 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <% unless @current_cart.nil? %>
-          <%= link_to order_all_path(cart: @current_cart.id), method: :post do %> <i class='fas fa-plus'></i> <% end %>
-          <% end %>
-          <%= button_to "Checkout", @current_cart, method: :get, class: "btn btn-primary"%>
+        <%= button_to "Checkout", @current_cart, method: :get, class: "btn btn-primary"%>
       </div>
     </div>
   </div>

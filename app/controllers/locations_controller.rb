@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_location, only: %i[show edit update destroy]
   skip_before_action :verify_authenticity_token
 
   # GET /locations
@@ -38,6 +38,21 @@ class LocationsController < ApplicationController
     end
   end
 
+  def set_loc
+    Location.where(user_id: location_params[:user_id]).each(&:destroy)
+    @location = Location.new(location_params)
+
+    respond_to do |format|
+      if @location.save
+        format.html { @location }
+        format.json { render :show, status: :created, location: @location }
+      else
+        format.html { render :new }
+        format.json { render json: @location.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PATCH/PUT /locations/1
   # PATCH/PUT /locations/1.json
   def update
@@ -63,13 +78,14 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = Location.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def location_params
-      params.require(:location).permit(:user_id, :lat, :long)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = Location.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def location_params
+    params.require(:location).permit(:user_id, :lat, :long)
+  end
 end

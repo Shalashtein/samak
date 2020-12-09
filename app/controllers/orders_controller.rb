@@ -1,28 +1,15 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: %i[show edit update destroy]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-    authorize @orders, policy_class: OrderPolicy
-  end
-
-  def order
-    params.permit(:cart)
-    c = Cart.find(params[:cart])
-    ordered = []
-    c.items.each do |i|
-      o = Order.new
-      o.user_id = current_user.id
-      o.product_id = i.product.id
-      o.location_id = 1
-      o.done = false
-      o.save!
-      ordered << o
-      i.destroy
+    if current_user.admin?
+      @orders = Order.all
+    else
+      @orders = Order.where(user_id: current_user.id)
     end
-    redirect_to root_path, success: "All items have been ordered. Please check the orders tab to track them"
+    authorize @orders, policy_class: OrderPolicy
   end
 
   # GET /orders/1
@@ -58,6 +45,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  def multiple
+    c = Cart.find(order_params[:cart])
+    c.items.each do |i|
+      o = Order.new(user_id: order_params[:user_id], product_id: i.product.id,
+                    location_id: Location.where(user_id: current_user.id).first.id,
+                    done: false)
+      o.save!
+      i.destroy
+    end
+    redirect_to orders_path, success: "All items have been ordered."
+  end
+
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
@@ -85,13 +84,14 @@ class OrdersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def order_params
-      params.require(:order).permit(:user_id, :product_id, :location_id, :done)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def order_params
+    params.require(:order).permit(:user_id, :product_id, :location_id, :done, :cart)
+  end
 end
