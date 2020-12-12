@@ -4,7 +4,15 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+    <% if current_user.admin? %>
     <%= f.association :catch %>
+    <% else %>
+    <%= f.association :catch, collection: Catch.where(user_id: current_user.id) %>
+    <% end %>
+    <% if current_user.admin? %>
+    <%= f.association :user %>
+    <% end %>
+    <%= f.input :bought %>
     <%= f.input :price %>
   </div>
 

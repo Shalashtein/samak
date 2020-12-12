@@ -3,7 +3,9 @@ class PagesController < ApplicationController
   layout 'market'
 
   def current_cart
-    @current_cart ||= Cart.find(session[:cart_id]) if session[:cart_id] && !Cart.find(session[:cart_id]).nil?
+    if session[:cart_id] && !Cart.find(session[:cart_id]).nil?
+      @current_cart ||= Cart.find(session[:cart_id])
+    end
     if session[:cart_id].nil?
       @current_cart = Cart.create(user_id: current_user.id)
       @current_cart.save!
@@ -17,7 +19,7 @@ class PagesController < ApplicationController
   end
 
   def market
-    @products = Product.all
+    @active_products = Product.where(bought: false)
   end
 
   def bucket; end

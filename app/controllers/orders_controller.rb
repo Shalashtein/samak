@@ -59,6 +59,8 @@ class OrdersController < ApplicationController
                     location_id: Location.where(user_id: current_user.id).first.id,
                     done: false)
       o.save!
+      i.product.bought = true
+      i.product.save!
       i.destroy
     end
     redirect_to orders_path, success: 'All items have been ordered.'
@@ -68,6 +70,10 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1.json
   def update
     authorize @order, policy_class: OrderPolicy
+    if @order.done?
+      @order.product.done = true
+      @prder.product.save!
+    end
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }

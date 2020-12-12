@@ -5,8 +5,8 @@ html{
   scroll-behavior: smooth !important;
 }
 body{
-  background-color: #fff7f7;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ff0000' fill-opacity='0.01' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+background-color: #340f6d;
+background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.29' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
 }
 .banner {
   background-size: cover;
@@ -43,9 +43,10 @@ body{
   width: 100%;
   text-align: center;
   font-family: 'Lobster', cursive;
+  color: #00d0ff;
 }
 .market-header > hr{
-  border-top: 2px solid red;
+  border-top: 2px solid #00d0ff;
   width: 80%;
   margin: 0 10px;
 }
@@ -62,9 +63,12 @@ body{
   border-radius: 10px;
   margin: 10px;
   width: 100%;
-  box-shadow: 0px 22px 27px -21px rgba(255,0,0,0.5);
+  box-shadow: 0px 22px 27px -21px rgba(197, 208, 239, 0.5);
   padding: 10px;
-  border: 2px solid rgba(255, 167, 167,0.5)
+  border: 2px solid rgba(130, 55, 212, 1);
+  &:hover{
+    box-shadow: 0px 22px 27px -21px rgba(197, 208, 239, 0.8);
+  }
 }
 
 .product-image{
@@ -90,10 +94,10 @@ body{
   position:absolute;
   top:0;
   left:0;
-  background-color: rgba(200,0,0,0.5);
+  background-color: rgba(130, 55, 212, 0.8);
   padding: 5px;
   border-radius: 8px 0 10px 0;
-  color: rgba(255,255,255,0.8);
+  color: white;
   font-size: 1.5em;
   font-family: 'Roboto', sans-serif;
 
@@ -108,7 +112,8 @@ body{
   -ms-transform: translate(-50%, -50%)
 }
 .inside-card:hover .product-image{
-  opacity: 0.5;
+  opacity: 0.7;
+  filter: blur(4px);
 }
 .inside-card:hover .add-to-cart-button{
   opacity: 1;
@@ -121,7 +126,7 @@ body{
   position:absolute;
   bottom:0;
   right:0;
-  background-color: rgba(200,0,0,0.5);
+  background-color: rgba(130, 55, 212, 0.8);
   padding: 5px;
   border-radius: 10px 0 10px 0;
   color: rgba(255,255,255,0.8);

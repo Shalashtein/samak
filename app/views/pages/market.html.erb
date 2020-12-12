@@ -10,7 +10,7 @@
 <hr><h1> 🐟 Today's Catch 🐟 </h1><hr>
 </div>
 <div class="products-area">
-    <% @products.each do |p| %>
+    <% @active_products.each do |p| %>
         <div class="inside-card">
           <%= image_tag(p.catch.fish.image.url, class: "product-image") %>
           <span class="fish-name"><span><%= p.catch.fish.english %></span></span>

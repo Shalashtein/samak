@@ -1,0 +1,89 @@
+<div class="fisherman-market-conatiner">
+  <div class="accordion" id="fisherman-market-accordion">
+    <div class="fisherman-market-card">
+      <div class="card-header card-header-red" id="headingOne">
+        <h2 class="mb-0">
+          <button class="fisherman-accordion-button" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            In Market
+          </button>
+        </h2>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#fisherman-market-accordion">
+        <div class="fisherman-market-card-body">
+          <% @active_products.each do |active_product| %>
+          <div class="fisherman-market-card-container">
+            <div class="fisherman-market-card-image">
+              <%= cl_image_tag("Fish #{active_product.catch.fish.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'fisherman-market-card-image-inner', alt: 'fish image') %>
+            </div>
+            <div class="fisherman-market-card-content">
+              <h5 class="card-title"><%= active_product.catch.fish.english %></h5>
+              <ul>
+                <li><%= "Weight: #{active_product.catch.weight} kg" %></li>
+                <li><%= "Price: #{active_product.price} LBP" %></li>
+              </ul>
+            </div>
+            <button type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span> Remove from market
+            </button>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="fisherman-market-card">
+      <div class="card-header card-header-blue" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="fisherman-accordion-button" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Processing
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#fisherman-market-accordion">
+        <div class="fisherman-market-card-body">
+          <% @products.each do |active_product| %>
+            <div class="fisherman-market-card-container">
+              <div class="fisherman-market-card-image">
+                <%= cl_image_tag("Fish #{active_product.catch.fish.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'fisherman-market-card-image-inner', alt: 'fish image') %>
+              </div>
+              <div class="fisherman-market-card-content">
+                <h5 class="card-title"><%= active_product.catch.fish.english %></h5>
+                <ul>
+                  <li><%= "Weight: #{active_product.catch.weight} kg" %></li>
+                  <li><%= "Price: #{active_product.price} LBP" %></li>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="fisherman-market-card">
+      <div class="card-header card-header-green" id="headingThree">
+        <h2 class="mb-0">
+          <button class="fisherman-accordion-button" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            History
+          </button>
+        </h2>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#fisherman-market-accordion">
+        <div class="fisherman-market-card-body">
+          <% @history.each do |active_product| %>
+            <div class="fisherman-market-card-container">
+              <div class="fisherman-market-card-image">
+                <%= cl_image_tag("Fish #{active_product.catch.fish.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'fisherman-market-card-image-inner', alt: 'fish image') %>
+              </div>
+              <div class="fisherman-market-card-content">
+                <h5 class="card-title"><%= active_product.catch.fish.english %></h5>
+                <ul>
+                  <li><%= "Weight: #{active_product.catch.weight} kg" %></li>
+                  <li><%= "Price: #{active_product.price} LBP" %></li>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

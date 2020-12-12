@@ -1,0 +1,47 @@
+.bucket-container{
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  padding-top:60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+.bucket-container > a {
+  text-decoration: none;
+  opacity: 0.8;
+ &:hover{
+  border-bottom: 3vw solid transparent;
+  opacity: 1;
+ }}
+.bucket-card{
+  border: 3px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  margin: 10px;
+  font-size: 5vw;
+  $width: 30vw;
+  height: $width;
+  width: $width;
+  font-weight: bolder;
+}
+
+.bucket-card-red{
+  border-color: rgba(255,0,0,0.8);
+  background-color: rgba(255,0,0,0.2);
+  text-decoration: none;
+}
+.bucket-card-green{
+  border-color: rgba(0,255,0,0.8);
+  background-color: rgba(0,255,0,0.2);
+}
+.bucket-card-blue{
+  border-color: rgba(0,0,255,0.8);
+  background-color: rgba(0,0,255,0.2);
+}
+

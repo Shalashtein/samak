@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   root to: 'pages#market'
   post '/location/set', to: 'locations#set_loc'
   post '/order/multiple', to: 'orders#multiple'
+  get '/fisherman/market', to: 'products#fisherman'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

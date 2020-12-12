@@ -1,0 +1,69 @@
+.fisherman-market-conatiner{
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  padding-top: 60px;
+}
+.fisherman-market-card{
+  background-color: rgba(0,0,0,0);
+  border: 2px solid rgba(0,0,0,0);
+}
+#fisherman-market-accordion{
+  width: 100%;
+}
+.fisherman-accordion-button{
+  border:none;
+  color: white;
+  background: none;
+  &:focus{
+    outline: none;
+  }
+}
+.card-header{
+  &-red{
+    background: rgb(200,10,10);
+    background: linear-gradient(90deg, rgba(200,10,10,0.7) 0%, rgba(200,10,10,0) 100%);
+  }
+  &-green{
+    background-color: rgba(10,200,10,0.7);
+    background: linear-gradient(90deg, rgba(10,200,10,0.7) 0%, rgba(10,200,10,0) 100%);
+  }
+  &-blue{
+    background-color: rgba(10,10,200,0.7);
+    background: linear-gradient(90deg, rgba(10,10,200,0.7) 0%, rgba(10,10,200,0) 100%);
+  }
+}
+.fisherman-market-card-body{
+  height: 50vh;
+  overflow: auto;
+}
+.fisherman-market-card-container{
+  padding: 5px;
+  background-color: rgba(200,200,200,0.8);
+  background: linear-gradient(90deg, rgba(200,200,200,0.7) 0%, rgba(200,200,200,0) 100%);
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  height: 25vh;
+}
+.fisherman-market-card-image{
+  width: 25%;
+  height: 100%;
+  margin-right:10px;
+  &-inner{
+    width: 100%;
+  }
+}
+.fisherman-market-card-content{
+  height: 100%;
+  display: flex;
+  color: white;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.close{
+  color: red;
+  text-shadow: 0 1px 0 #4a0000;
+  font-size: 1em;
+}

@@ -4,7 +4,11 @@ class CatchesController < ApplicationController
   # GET /catches
   # GET /catches.json
   def index
-    @catches = Catch.all
+    @catches = if current_user.admin?
+                 Catch.all
+               else
+                  Catch.where(user_id: current_user.id)
+               end
     authorize @catches, policy_class: CatchPolicy
   end
 

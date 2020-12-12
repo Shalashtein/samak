@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_122537) do
+ActiveRecord::Schema.define(version: 2020_12_11_130109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,12 +68,12 @@ ActiveRecord::Schema.define(version: 2020_12_09_122537) do
     t.bigint "user_id", null: false
     t.bigint "product_id", null: false
     t.bigint "location_id", null: false
-    t.boolean "done"
+    t.boolean "done", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "accepted"
-    t.boolean "picked"
-    t.boolean "reviewed"
+    t.boolean "accepted", default: false
+    t.boolean "picked", default: false
+    t.boolean "reviewed", default: false
     t.index ["location_id"], name: "index_orders_on_location_id"
     t.index ["product_id"], name: "index_orders_on_product_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -84,7 +84,11 @@ ActiveRecord::Schema.define(version: 2020_12_09_122537) do
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "bought", default: false
+    t.bigint "user_id", null: false
+    t.boolean "done", default: false
     t.index ["catch_id"], name: "index_products_on_catch_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -135,6 +139,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_122537) do
   add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "catches"
+  add_foreign_key "products", "users"
   add_foreign_key "reviews", "users", column: "fisherman_id"
   add_foreign_key "reviews", "users", column: "reviewer_id"
 end

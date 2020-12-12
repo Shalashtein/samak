@@ -1,16 +1,24 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
+  layout 'market', only: %i[fisherman]
 
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    @active_products = Product.where(bought: false)
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    authorize @product, policy_class: ProductPolicy
+  end
+
+  def fisherman
+    @active_products = Product.where(user_id: current_user.id, bought: false)
+    @products = Product.where(user_id: current_user.id, bought: true).select {|p| !Order.where(product_id: p.id).first.done?}
+    @history = Product.where(user_id: current_user.id, bought: true).select {|p| Order.where(product_id: p.id).first.done?}
+
   end
 
   # GET /products/new
@@ -28,6 +36,9 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    if @product.user_id.nil?
+      @product.user_id = current_user.id
+    end
     authorize @product, policy_class: ProductPolicy
     respond_to do |format|
       if @product.save
@@ -75,6 +86,6 @@ class ProductsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def product_params
-    params.require(:product).permit(:catch_id, :price)
+    params.require(:product).permit(:catch_id, :price, :user_id, :bought)
   end
 end

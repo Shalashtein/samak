@@ -6,7 +6,7 @@
       <%= f.input :email,
                   required: false,
                   autofocus: true,
-                  autocomplete: 'disabled'%>
+                  input_html: { class: 'was-validated' }%>
       <%= f.input :password,
                   required: false,
                   autocomplete: 'disabled' %>

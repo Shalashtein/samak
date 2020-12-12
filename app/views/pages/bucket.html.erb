@@ -1,8 +1,17 @@
 <div class="bucket-container">
-  <div class="bucket-list overflow-auto">
-
+  <%= link_to fisherman_market_path, {method: :get, class: 'market-card-link'} do %>
+  <div class="bucket-card bucket-card-red">
+    Market
   </div>
-  <div class="selling-list overflow-auto">
-
+  <% end %>
+  <%= link_to catches_path, {method: :get, class: 'market-card-link'} do %>
+  <div class="bucket-card bucket-card-green">
+    Catches
   </div>
+  <% end %>
+   <%= link_to catches_path, {method: :get, class: 'market-card-link'} do %>
+  <div class="bucket-card bucket-card-blue">
+    Account
+  </div>
+  <% end %>
 </div>
