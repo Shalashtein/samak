@@ -39,7 +39,7 @@ class ProductPolicy < ApplicationPolicy
   def destroy?
     if @user.admin?
       true
-    elsif @user.fisherman? && (@record.user_id == @user.user_id)
+    elsif @user.fisherman? && (@record.user_id == @user.id)
       true
     else
       false

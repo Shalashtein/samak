@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    session[:return_to] ||= request.referer
     @product = Product.new(product_params)
     if @product.user_id.nil?
       @product.user_id = current_user.id
@@ -42,7 +43,7 @@ class ProductsController < ApplicationController
     authorize @product, policy_class: ProductPolicy
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), success: 'Added to Market!' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -69,10 +70,11 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
+    session[:return_to] ||= request.referer
     authorize @product, policy_class: ProductPolicy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to session.delete(:return_to), notice: 'Removed from Market' }
       format.json { head :no_content }
     end
   end

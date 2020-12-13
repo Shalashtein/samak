@@ -8,7 +8,6 @@
 require 'csv'
 puts "scientific" + "   " + "english" + "   " + "arabic" + "   " + "texture" + "   " + "flavor"
 CSV.foreach('fish.csv') do |row|
-  puts row [2]
   scientific = row[0]
   scientific ||= ""
   english = row[1]
@@ -19,6 +18,7 @@ CSV.foreach('fish.csv') do |row|
   texture ||= ""
   flavor = row[4]
   flavor ||= ""
-  Fish.create(scientific: scientific, english: english, lebanese: arabic, texture: texture, flavor: flavor).save!
+  remote_image_url = row[14]
+  Fish.create(scientific: scientific, english: english, lebanese: arabic, texture: texture, flavor: flavor, remote_image_url: remote_image_url).save!
 end
 puts "done"

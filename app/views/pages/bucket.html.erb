@@ -1,17 +1,245 @@
 <div class="bucket-container">
-  <%= link_to fisherman_market_path, {method: :get, class: 'market-card-link'} do %>
-  <div class="bucket-card bucket-card-red">
-    Market
+  <div class="bucket-bar bucket-bar-green"  id="bucketBar" ondrop="handleDrop" ondragover="handleDragOverMarket">
+    <div class="bucket-bar-header">
+      <h2>Catches</h2>
+      <button class="btn"><i class="fas fa-plus-circle"></i>New Catch</button>
+    </div>
+    <div class="bucket-bar-body" id="bucketBarBody">
+      <div id="accordion">
+        <div class="card-header bucket-card-header bucket-card-header-green-holder drop-holder" id="dropHolderBucket">
+          <i class="far fa-minus-square"></i>
+        </div>
+        <% @catches.each_with_index do |c,i| %>
+        <div class="card bucket-card" draggable="true" data-i="<%= i %>" id="<%= "draggable-market-card-#{i}" %>">
+          <div class="card-header bucket-card-header bucket-card-header-green" id=<%= "heading#{i}" %>  data-toggle="collapse" data-target="#<%= "collapse#{i}" %>" aria-expanded="true" aria-controls="<%= "collapse#{i}" %>">
+            <h5 class="mb-0">
+              <%= c.fish.english %>
+            </h5>
+          </div>
+
+          <div id="<%= "collapse#{i}" %>" class="collapse" aria-labelledby=<%= "heading#{i}" %> data-parent="#accordion">
+            <div class="card-body catch-card-body">
+              <div class="catch-card-body-weight">
+                <h5><%= "Weight: #{c.weight}kg" %></h5>
+              </div>
+              <div class="catch-card-body-image">
+                <%= cl_image_tag("Fish #{c.fish.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'catch-card-body-image-inner', alt: 'fish image') %>
+              </div>
+              <button class="btn catch-card-body-footer" data-toggle="modal" data-target="<%= "#Modal-#{i}" %>" id="<%= "catch-card-body-footer-#{i}" %>">Sell in Market<i class="fas fa-arrow-circle-right"></i></button>
+
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <% end %>
-  <%= link_to catches_path, {method: :get, class: 'market-card-link'} do %>
-  <div class="bucket-card bucket-card-green">
-    Catches
+  <div class="bucket-bar bucket-bar-red" id="marketBar" ondrop="handleDrop" ondragover="handleDragOverMarket">
+    <div class="bucket-bar-header">
+      <h2>Market</h2>
+    </div>
+    <div class="bucket-bar-body" id="marketBarBody">
+      <div id="accordion">
+        <div class="card-header bucket-card-header bucket-card-header-red-holder drop-holder" id="dropHolder">
+          <i class="far fa-plus-square"></i>
+        </div>
+        <% @active_products.each_with_index do |p,i| %>
+        <div class="card bucket-card-market" draggable="<%= !p.bought? %>" data-i="<%= p.id %>" id="<%= "draggable-bucket-card-#{i}" %>">
+          <div class="card-header bucket-card-header bucket-card-header-red" id=<%= "marketheading#{i}" %>  data-toggle="collapse" data-target="#<%= "marketcollapse#{i}" %>" aria-expanded="true" aria-controls="<%= "marketcollapse#{i}" %>">
+            <h5 class="mb-0 bucket-card-header-mb">
+              <%= p.catch.fish.english %>
+            </h5>
+            <% if p.bought? %>
+            <h5><span class="badge badge-success">Bought</span></h5>
+            <% else %>
+            <%= link_to "/products/#{p.id}", method: :delete, id: "product-remove-button-#{p.id}" do %>
+            <h5><span class="badge badge-danger" style="z-index: 10;">Remove</span></h5>
+            <% end %>
+            <% end %>
+          </div>
+
+          <div id="<%= "marketcollapse#{i}" %>" class="collapse" aria-labelledby=<%= "marketheading#{i}" %> data-parent="#accordion">
+            <div class="card-body catch-card-body">
+              <div class="catch-card-body-weight">
+                <h5><%= "Price: #{p.price * p.catch.weight}LBP" %></h5>
+                <h5><%= "Weight: #{p.catch.weight}kg" %></h5>
+              </div>
+              <div class="catch-card-body-image">
+                <%= cl_image_tag("Fish #{p.catch.fish.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'catch-card-body-image-inner', alt: 'fish image') %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <% end %>
-   <%= link_to catches_path, {method: :get, class: 'market-card-link'} do %>
-  <div class="bucket-card bucket-card-blue">
-    Account
-  </div>
-  <% end %>
 </div>
+<% @catches.each_with_index do |c,i| %>
+<!-- Modal -->
+<div class="modal fade" id="<%= "Modal-#{i}" %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bucket-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter price per kilo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for(@product) do |f| %>
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+        <div class="form-inputs">
+          <%= f.hidden_field :catch_id, value: c.id %>
+          <%= f.hidden_field :user_id %>
+          <%= f.hidden_field :bought %>
+          <%= f.input :price%>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, id: 'catch-to-market-submit'%>
+        </div>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="catch-to-market-modal-confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
+<% end %>
+<script>
+  //---------------- Catches Dragging Handlers -------------
+  //////////////////////////////////////////////////////////
+  function dragstart_handler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    console.log("drag started");
+    this.style.border = '1px dashed green';
+
+    var marketBarBody = document.getElementById('marketBarBody');
+    var dropHolder = document.getElementById('dropHolder');
+    dropHolder.classList.toggle("drop-holder");
+    marketBarBody.style.pointerEvents = 'none';
+
+    ev.dataTransfer.setData("application/card-id", ev.target.id);
+    ev.dataTransfer.dropEffect = "move";
+  }
+  function dragend_handler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    this.style.border = 'none';
+    var dropHolder = document.getElementById('dropHolder');
+    dropHolder.classList.toggle("drop-holder");
+
+    var marketBarBody = document.getElementById('marketBarBody');
+    marketBarBody.style.pointerEvents = 'auto';
+
+  }
+  function handleDragEnterMarket(e) {
+    console.log("entered market area");
+  }
+
+  function handleDragLeaveMarket(e) {
+    console.log("exited market area");
+  }
+  function handleDragOverMarket(e) {
+    console.log("Dragging over market area");
+    e.preventDefault();
+  }
+  function handleDrop(e) {
+    const data = e.dataTransfer.getData("application/card-id");
+    var i = document.getElementById(data).getAttribute("data-i");
+    var buttonid = "#catch-card-body-footer-" + i
+    $(buttonid).click();
+    console.log(buttonid);
+    e.stopPropagation(); // stops the browser from redirecting.
+    return false;
+  }
+
+  //----------- Market Dragging Handlers -----------
+  //////////////////////////////////////////////////
+
+  function dragstart_handler_bucket(ev) {
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    console.log("drag started (red)");
+    this.style.border = '1px dashed red';
+
+    var bucketBarBody = document.getElementById('bucketBarBody');
+    var dropHolderBucket = document.getElementById('dropHolderBucket');
+    dropHolderBucket.classList.toggle("drop-holder");
+    bucketBarBody.style.pointerEvents = 'none';
+
+    ev.dataTransfer.setData("application/bucket-card-id", ev.target.id);
+    ev.dataTransfer.dropEffect = "move";
+  }
+  function dragend_handler_bucket(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    this.style.border = 'none';
+    var dropHolderBucket = document.getElementById('dropHolderBucket');
+    dropHolderBucket.classList.toggle("drop-holder");
+
+    var bucketBarBody = document.getElementById('bucketBarBody');
+    bucketBarBody.style.pointerEvents = 'auto';
+
+  }
+  function handleDragEnterMarket_bucket(e) {
+    console.log("entered catches area");
+  }
+
+  function handleDragLeaveMarket_bucket(e) {
+    console.log("exited catches area");
+  }
+  function handleDragOverMarket_bucket(e) {
+    console.log("Dragging over catches area");
+    e.preventDefault();
+  }
+  function handleDrop_bucket(e) {
+    const data = e.dataTransfer.getData("application/bucket-card-id");
+    var i = document.getElementById(data).getAttribute("data-i");
+    var productRemoveButton = document.getElementById("product-remove-button-" + i);
+    productRemoveButton.click();
+    e.stopPropagation(); // stops the browser from redirecting.
+    return false;
+  }
+
+  //--------------- Listeners--------------------
+  //////////////////////////////////////////////
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Get the element by id
+    var draggableCards = document.getElementsByClassName('bucket-card');
+    var marketDrop = document.getElementById('marketBar');
+    var draggableMarketCards = document.getElementsByClassName('bucket-card-market');
+    var catchesDrop = document.getElementById('bucketBar');
+
+    //drop event listeners
+    marketDrop.addEventListener('dragenter', handleDragEnterMarket, false);
+    marketDrop.addEventListener('dragleave', handleDragLeaveMarket, false);
+    marketDrop.addEventListener('dragover', handleDragOverMarket, false);
+    marketDrop.addEventListener('drop', handleDrop, false);
+    catchesDrop.addEventListener('dragenter', handleDragEnterMarket_bucket, false);
+    catchesDrop.addEventListener('dragleave', handleDragLeaveMarket_bucket, false);
+    catchesDrop.addEventListener('dragover', handleDragOverMarket_bucket, false);
+    catchesDrop.addEventListener('drop', handleDrop_bucket, false);
+
+    // Card event listener
+    Array.from(draggableCards).forEach(function(card) {
+      card.addEventListener('dragstart', dragstart_handler, false);
+      card.addEventListener('dragend', dragend_handler, false);
+    });
+    Array.from(draggableMarketCards).forEach(function(card) {
+      card.addEventListener('dragstart', dragstart_handler_bucket, false);
+      card.addEventListener('dragend', dragend_handler_bucket, false);
+    });
+  });
+</script>

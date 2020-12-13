@@ -1,5 +1,6 @@
 class CatchesController < ApplicationController
   before_action :set_catch, only: %i[show edit update destroy]
+  layout 'market', only: %i[index]
 
   # GET /catches
   # GET /catches.json

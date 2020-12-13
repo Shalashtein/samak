@@ -4,44 +4,122 @@
   padding: 20px;
   padding-top:60px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
 }
-.bucket-container > a {
-  text-decoration: none;
-  opacity: 0.8;
- &:hover{
-  border-bottom: 3vw solid transparent;
-  opacity: 1;
- }}
-.bucket-card{
-  border: 3px solid black;
-  border-radius: 10px;
+.bucket-bar{
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+  overflow: auto;
+  color: white;
+  &-green{
+    background-color: rgba(0,255,0,0.2);
+  }
+  &-red{
+    background-color: rgba(255,0,0,0.2);
+  }
+  &-header{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    & > button{
+      color: green;
+      font-weight: bolder;
+      &:hover{
+        color: green;
+        text-shadow: 0 0 10px #00ff148f, 38px 40px 19px rgba(206,89,55,0);
+      }
+    }
+  }
+  &-body{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+}
+.bucket-card, .bucket-card-market{
+  background: none;
+  cursor: move;
+}
+
+[draggable] {
+  user-select: none;
+}
+.bucket-card-header{
+  &-green{
+    background-color: rgba(0,30,0,0.5);
+    &-holder{
+      height:50px;
+      margin-bottom: 3px;
+      background:none;
+      border: 1px dashed red;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      color: green;
+      font-size: 1.25em;
+    }
+  }
+  &-red{
+    background-color: rgba(30,0,0,0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &-holder{
+      height:50px;
+      margin-bottom: 3px;
+      background:none;
+      border: 1px dashed green;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      color: green;
+      font-size: 1.25em;
+    }
+  }
+}
+.drop-holder{
+  display: none;
+}
+.catch-card-body{
   display: flex;
-  align-items:center;
-  justify-content: center;
   flex-direction: column;
   color: white;
-  margin: 10px;
-  font-size: 5vw;
-  $width: 30vw;
-  height: $width;
-  width: $width;
-  font-weight: bolder;
+  align-items: center;
+  &-weight{
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+  }
+  &-image{
+    width: 60%;
+    &-inner{
+      width: 100%;
+    }
+  }
+  &-footer{
+    width: 100%;
+    color: white;
+    background-color: rgba(200,0,0,0.6);
+    & > i{
+      margin-left: 5px;
+    }
+  }
 }
-
-.bucket-card-red{
-  border-color: rgba(255,0,0,0.8);
-  background-color: rgba(255,0,0,0.2);
-  text-decoration: none;
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .catch-card-body {
+    &-weight{
+      font-size: 1.25em;
+    }
+    &-image{
+      width: 100%;
+    }
+  }
 }
-.bucket-card-green{
-  border-color: rgba(0,255,0,0.8);
-  background-color: rgba(0,255,0,0.2);
+.bucket-modal{
+  background-color: rgba(50,50,50,0.7);
 }
-.bucket-card-blue{
-  border-color: rgba(0,0,255,0.8);
-  background-color: rgba(0,0,255,0.2);
+#catch-to-market-submit{
+  display: none;
 }
-

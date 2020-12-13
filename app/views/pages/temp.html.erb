@@ -1,0 +1,49 @@
+ //---------------- Catches Dragging Handlers -------------
+  //////////////////////////////////////////////////////////
+  function dragstart_handler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    console.log("drag started");
+    this.style.border = '1px dashed green';
+
+    var marketBarBody = document.getElementById('marketBarBody');
+    var dropHolder = document.getElementById('dropHolder');
+    dropHolder.classList.toggle("drop-holder");
+    marketBarBody.style.pointerEvents = 'none';
+
+    ev.dataTransfer.setData("application/card-id", ev.target.id);
+    ev.dataTransfer.dropEffect = "move";
+  }
+  function dragend_handler(ev) {
+    // Add the target element's id to the data transfer object
+    ev.dataTransfer.setData("text/plain", ev.target.id);
+    ev.dataTransfer.setData("text/html", ev.target.outerHTML);
+    this.style.border = 'none';
+    var dropHolder = document.getElementById('dropHolder');
+    dropHolder.classList.toggle("drop-holder");
+
+    var marketBarBody = document.getElementById('marketBarBody');
+    marketBarBody.style.pointerEvents = 'auto';
+
+  }
+  function handleDragEnterMarket(e) {
+    console.log("entered market area");
+  }
+
+  function handleDragLeaveMarket(e) {
+    console.log("exited market area");
+  }
+  function handleDragOverMarket(e) {
+    console.log("Dragging over market area");
+    e.preventDefault();
+  }
+  function handleDrop(e) {
+    const data = e.dataTransfer.getData("application/card-id");
+    var i = document.getElementById(data).getAttribute("data-i");
+    var buttonid = "#catch-card-body-footer-" + i
+    $(buttonid).click();
+    console.log(buttonid);
+    e.stopPropagation(); // stops the browser from redirecting.
+    return false;
+  }

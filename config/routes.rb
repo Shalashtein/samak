@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   post '/location/set', to: 'locations#set_loc'
   post '/order/multiple', to: 'orders#multiple'
   get '/fisherman/market', to: 'products#fisherman'
+  get '/fisherman/account', to: 'pages#account'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

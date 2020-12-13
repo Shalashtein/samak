@@ -23,8 +23,11 @@
           <%= link_to "Orders", orders_path, class: "nav-link" %>
         </li>
       <% else %>
-        <li class="nav-item">
+        <li class="nav-item  <%= 'active' if controller.controller_name == 'pages' && controller.action_name == 'bucket' %>">
           <%= link_to "Bucket", bucket_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item <%= 'active' if controller.controller_name == 'pages' && controller.action_name == 'account' %>">
+          <%= link_to "Analytics", fisherman_account_path, class: "nav-link" %>
         </li>
       <% end %>
        <li class="nav-item">

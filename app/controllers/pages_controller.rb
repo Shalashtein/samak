@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :current_cart, only: [:market]
-  layout 'market'
+  layout 'account', only: [:account]
 
   def current_cart
     if session[:cart_id] && !Cart.find(session[:cart_id]).nil?
@@ -22,5 +22,16 @@ class PagesController < ApplicationController
     @active_products = Product.where(bought: false)
   end
 
-  def bucket; end
+  def bucket
+    @product = Product.new
+    @catches = if current_user.admin?
+                 Catch.all
+               else
+                  Catch.where(user_id: current_user.id).select {|c| Product.where(catch_id: c.id).first.nil? }
+               end
+    @active_products = Product.where(user_id: current_user.id).select {|p| Order.where(product_id: p.id).first.nil? || !Order.where(product_id: p.id).first.picked? }
+    @fish = Fish.all
+  end
+
+  def account; end
 end
