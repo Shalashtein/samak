@@ -2,7 +2,7 @@
   <div class="bucket-bar bucket-bar-green"  id="bucketBar" ondrop="handleDrop" ondragover="handleDragOverMarket">
     <div class="bucket-bar-header">
       <h2>Catches</h2>
-      <button class="btn"><i class="fas fa-plus-circle"></i>New Catch</button>
+      <button class="btn" data-toggle="modal" data-target="#fishSelectionModal"><i class="fas fa-plus-circle"></i>New Catch</button>
     </div>
     <div class="bucket-bar-body" id="bucketBarBody">
       <div id="accordion">
@@ -76,7 +76,7 @@
   </div>
 </div>
 <% @catches.each_with_index do |c,i| %>
-<!-- Modal -->
+<!-- Add to Market Modal -->
 <div class="modal fade" id="<%= "Modal-#{i}" %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content bucket-modal">
@@ -110,8 +110,74 @@
     </div>
   </div>
 </div>
-<!-- Modal End -->
+<!-- Add to Market Modal END -->
 <% end %>
+<!-- Fish Selection Modal START -->
+<div class="modal fade" id="fishSelectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-fish-selection" role="document">
+    <div class="modal-content modal-content-fish-selection">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select Fish</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="fishSelectBody">
+          <% @fish.each do |f| %>
+            <div class="card fishSelectBody-card" data-fishId="<%= f.id %>">
+              <%= cl_image_tag("Fish #{f.id}", :transformation=>[{:aspect_ratio=>"4:3", :crop=>"fill"}, {:width=>"300", :dpr=>"auto", :crop=>"fit"}], class: 'card-img-top', alt: 'fish image') %>
+              <div class="card-body">
+                <p class="card-text"><%= f.english %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fish Selection Modal END -->
+
+<!-- Fish weight modal START -->
+<% @fish.each do |x| %>
+<div class="modal fade" id=<%= "fishWeightModal-#{x.id}" %> tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-index="<%= x.id %>">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Fish Weight</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <%= simple_form_for(@catch) do |f| %>
+          <%= f.error_notification %>
+          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+          <div class="form-inputs">
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :fish_id, id: "fish-input-#{x.id}" %>
+            <%= f.input :weight, input_html: {id: "weight-#{x.id}"} %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, id: "newCatchSubmit-#{x.id}", class: "newCatchSubmit" %>
+          </div>
+        <% end %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id=<%= "newCatchSubmitModalButton-#{x.id }" %>>Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<!-- Fish weight modal END -->
 <script>
   //---------------- Catches Dragging Handlers -------------
   //////////////////////////////////////////////////////////
@@ -241,5 +307,10 @@
       card.addEventListener('dragstart', dragstart_handler_bucket, false);
       card.addEventListener('dragend', dragend_handler_bucket, false);
     });
+
   });
+  $('#catch-to-market-modal-confirm').click( function(e) {
+  console.log("xx");
+  $('#catch-to-market-submit').click();
+});
 </script>

@@ -13,9 +13,11 @@
   color: white;
   &-green{
     background-color: rgba(0,255,0,0.2);
+    box-shadow: inset 0px -15px 13px -14px rgb(189, 255, 189);
   }
   &-red{
     background-color: rgba(255,0,0,0.2);
+    box-shadow: inset 0px -15px 13px -14px rgb(255, 189, 189);
   }
   &-header{
     width: 100%;
@@ -120,6 +122,31 @@
 .bucket-modal{
   background-color: rgba(50,50,50,0.7);
 }
-#catch-to-market-submit{
+#catch-to-market-submit, .newCatchSubmit{
   display: none;
+}
+.fishSelectBody{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  &-card{
+    width: 33%;
+  }
+}
+.modal-dialog-fish-selection{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.modal-content-fish-selection{
+  width: 80vw;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .modal-content-fish-selection {
+    width: 100vw;
+  }
+  .fishSelectBody-card{
+    width:50%;
+  }
 }

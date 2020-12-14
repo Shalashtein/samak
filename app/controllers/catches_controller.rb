@@ -33,11 +33,12 @@ class CatchesController < ApplicationController
   # POST /catches
   # POST /catches.json
   def create
+    session[:return_to] ||= request.referer
     @catch = Catch.new(catch_params)
     authorize @catch, policy_class: CatchPolicy
     respond_to do |format|
       if @catch.save
-        format.html { redirect_to @catch, notice: 'Catch was successfully created.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Catch was successfully created.' }
         format.json { render :show, status: :created, location: @catch }
       else
         format.html { render :new }

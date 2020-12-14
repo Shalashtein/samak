@@ -30,7 +30,8 @@ class PagesController < ApplicationController
                   Catch.where(user_id: current_user.id).select {|c| Product.where(catch_id: c.id).first.nil? }
                end
     @active_products = Product.where(user_id: current_user.id).select {|p| Order.where(product_id: p.id).first.nil? || !Order.where(product_id: p.id).first.picked? }
-    @fish = Fish.all
+    @fish = Fish.all.select {|f| !f.image.file.nil?}
+    @catch = Catch.new
   end
 
   def account; end

@@ -7,8 +7,7 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
-require("jquery")
-require("bootstrap")
+
 // For Toast Messages
 global.toastr = require("toastr")
 import "../stylesheets/application"
@@ -27,6 +26,7 @@ import "../stylesheets/application"
 
 // External imports
 import "bootstrap";
+import'bootstrap/dist/js/bootstrap';
 
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
@@ -64,10 +64,20 @@ jQuery('#history-order-tab').click( function(e) {
     console.log("Removed noshow class from history");
   }
 });
-jQuery('#catch-to-market-modal-confirm').click( function(e) {
-  console.log("xx");
-  jQuery('#catch-to-market-submit').click();
-});
+
 document.addEventListener('turbolinks:load', () => {
   initMapbox();
 });
+  var fishCard = document.getElementsByClassName('fishSelectBody-card');
+  Array.from(fishCard).forEach(function(card) {
+      var fishIndex = card.dataset.fishid;
+      card.addEventListener("click", function(){
+        console.log("clicked");
+        $('#fishSelectionModal').modal('toggle');
+        $('#fishWeightModal-' + fishIndex).modal('toggle');
+        $('#fish-input-' + fishIndex).val(fishIndex);
+        $('#newCatchSubmitModalButton-' + fishIndex).click(function(){
+          $('#newCatchSubmit-' + fishIndex).click();
+        });
+      });
+    });
