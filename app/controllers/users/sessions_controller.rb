@@ -19,8 +19,10 @@ module Users
     def destroy
       unless session[:cart_id].nil?
         @current_cart ||= Cart.find(session[:cart_id])
-        unless @current_cart.items.first.nil?
-          @current_cart.destroy
+        if @current_cart.items.first.nil?
+          puts @current_cart
+          puts "oooooooooooooooooooooooooooo"
+          @current_cart.destroy          byebug
         end
       end
       super
