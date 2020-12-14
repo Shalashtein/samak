@@ -26,7 +26,9 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-Rails.logger.info "███████ ███████ ██████  ██    ██ ███████ ██████      ██    ██ ██████  ██ 
+Rails.logger.info "
+
+███████ ███████ ██████  ██    ██ ███████ ██████      ██    ██ ██████  ██ 
 ██      ██      ██   ██ ██    ██ ██      ██   ██     ██    ██ ██   ██ ██ 
 ███████ █████   ██████  ██    ██ █████   ██████      ██    ██ ██████  ██ 
      ██ ██      ██   ██  ██  ██  ██      ██   ██     ██    ██ ██         
