@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :catches
   resources :fish
   mount RailsAdmin::Engine => '/god', as: 'rails_admin'
-  devise_for :users, :controllers => {:sessions => "users/sessions"}
+  devise_for :users, controllers: {sessions: "users/sessions", registrations: "users/registrations"}
   root to: 'pages#bucket', constraints: lambda { |request| request.env['warden'].user.fisherman? unless request.env['warden'].user.nil? }, as: "bucket"
   root to: 'pages#market'
   post '/location/set', to: 'locations#set_loc'
