@@ -20,9 +20,8 @@ module Users
       unless session[:cart_id].nil?
         @current_cart ||= Cart.find(session[:cart_id])
         if @current_cart.items.first.nil?
-          puts @current_cart
-          puts "oooooooooooooooooooooooooooo"
-          @current_cart.destroy          byebug
+          @current_cart.destroy
+          session[:cart_id] = nil
         end
       end
       super

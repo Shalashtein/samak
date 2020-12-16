@@ -3,7 +3,7 @@ class PagesController < ApplicationController
   layout 'account', only: [:account]
 
   def current_cart
-    if session[:cart_id] && !Cart.find(session[:cart_id]).nil?
+    if session[:cart_id]
       @current_cart ||= Cart.find(session[:cart_id])
     end
     if session[:cart_id].nil?
